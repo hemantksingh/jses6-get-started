@@ -1,14 +1,17 @@
 require('babel-core/register');
 
-var gulp = require("gulp");
-var babel = require("gulp-babel");
-var sourceMaps = require("gulp-sourcemaps");
-var mocha = require('gulp-mocha');
+import gulp from 'gulp';
+import babel from 'gulp-babel';
+import sourceMaps from 'gulp-sourcemaps';
+import mocha from 'gulp-mocha';
 
 gulp.task('test', ()=> {
 	return gulp.src('test/**/*.js', {read: false})
         .pipe(mocha({
             reporter: 'spec',
+            // require: [
+            //     './lib/global'
+            // ],
             compilers: {
                 js: babel
             }
