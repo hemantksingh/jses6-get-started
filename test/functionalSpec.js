@@ -87,3 +87,25 @@ describe('Rest parameters', () => {
 		});
 	});
 });
+
+describe('Template literals', () => {
+	
+	describe('with strings', () => {	
+		let name = "A name";
+		let result = `Hello, ${name}`;
+
+		it('assigns variable value to a string', () => {
+			expect(result).to.eq("Hello, A name");
+		});
+	});
+
+	describe('with expression', () => {
+		let x = 1;
+		let y = 2;
+		let result = `${x} + ${y} is ${x+y}`;
+
+		it('evaluates the expression', () => {
+			expect(result).to.eq('1 + 2 is 3');
+		});
+	});
+});
