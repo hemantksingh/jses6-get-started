@@ -49,3 +49,41 @@ describe('Destructuring', () => {
 		});
 	});
 });
+
+
+describe('Rest parameters', () => {
+	let sum = (type, ...numbers) => {
+		let total = 0;
+		numbers.forEach((n) => {
+			total += n;
+		});
+		return total;
+	};
+	
+	describe('with 3 integer values', () => {
+
+		let result = sum('array', 1, 2, 3);
+
+		it('evaluates the 3 values', () => {
+			expect(result).to.eq(6);
+		});
+	});
+
+	describe('with integer and string values', () => {
+
+		let result = sum('array', 1, 2, '3');
+
+		it('evaluates the combination of integer and string values', () => {
+			expect(result).to.eq('33');
+		});
+	});	
+
+	describe('with no values', () => {
+
+		let result = sum('array');
+
+		it('does not evaluate', () => {
+			expect(result).to.eq(0);
+		});
+	});
+});
