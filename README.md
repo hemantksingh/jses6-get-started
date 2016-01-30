@@ -9,4 +9,4 @@ We are using *Gulp* as the build tool therefore the app defines a `gulpfile.js` 
 
 ##Running the app##
 
-TO run the app locally `babel node index.js`. This compiles and runs the app on the fly.
+TO run the app locally `babel-node index.js`. This compiles and runs the app on the fly.
