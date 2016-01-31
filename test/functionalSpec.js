@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import Functional from '../src/functional';
 
 describe('Array indexes', () => {
 	let array = [1,2,3];
@@ -15,7 +16,6 @@ describe('Array indexes', () => {
 		});
 	});
 });
-
 
 describe('Destructuring', () => {
 	
@@ -54,9 +54,7 @@ describe('Destructuring', () => {
 describe('Rest parameters', () => {
 	let sum = (type, ...numbers) => {
 		let total = 0;
-		numbers.forEach((n) => {
-			total += n;
-		});
+		numbers.forEach((n) => total += n);
 		return total;
 	};
 	
@@ -109,3 +107,14 @@ describe('Template literals', () => {
 		});
 	});
 });
+
+describe('Lexical binding', () => {
+	
+	let f = new Functional('A name');
+
+	it("'this' has the same value in an arrow function", () => {
+		let result = f.lexicalBinding()();
+		expect(result).to.eq('A name');
+	});
+});
+
