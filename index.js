@@ -1,12 +1,5 @@
 'use strict'
-function start() {
-	let msg = 'Started...';
+import Functional from './src/functional';
 
-	let log = (msg) => {
-		console.log("Invoked in the lambda: " + msg);
-	};
-
-	log(msg);
-}
-
-start();
+let f = new Functional("Invoking an ES6 module...");
+console.log(f.lexicalBinding()());
