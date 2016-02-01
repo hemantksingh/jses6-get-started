@@ -5,16 +5,8 @@ import babel from 'gulp-babel';
 import sourceMaps from 'gulp-sourcemaps';
 import merge from 'merge-stream';
 import mocha from 'gulp-mocha';
-
-gulp.task('test', ()=> {
-	return gulp.src('test/**/*.js', {read: false})
-        .pipe(mocha({
-            reporter: 'spec',
-            compilers: {
-                js: babel
-            }
-        }));
-});
+import runSequence from 'run-sequence';
+import jshint from 'gulp-jshint';
 
 gulp.task('build', () => {
 	
@@ -33,4 +25,25 @@ gulp.task('build', () => {
         .pipe(gulp.dest('dist'));
 
     return merge(index, src);    
+});
+
+gulp.task('unit', ()=> {
+    return gulp.src('test/**/*.js', {read: false})
+        .pipe(mocha({
+            reporter: 'spec',
+            compilers: {
+                js: babel
+            }
+        }));
+});
+
+gulp.task('lint', () => {
+    return gulp.src(['src/**/*.js', 'test/**/*.js'])
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'))
+        .pipe(jshint.reporter('fail'));
+});
+
+gulp.task('test', callback => {
+    runSequence('lint', 'unit', callback);
 });

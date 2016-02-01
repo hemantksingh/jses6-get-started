@@ -1,3 +1,5 @@
+'use strict';
+
 import { expect } from 'chai';
 import Functional from '../src/functional';
 
@@ -20,12 +22,12 @@ describe('Array indexes', () => {
 describe('Destructuring', () => {
 	
 	describe('an array with 3 values', () => {
-		let [,x,y,z] = [3,1,2]
+		let [,x,y,z] = [3,1,2];
 
 		it('assigns the array values', () => {
 			expect(x).to.eq(1);
 			expect(y).to.eq(2);
-			expect(z).to.be.undefined;
+			expect(z).to.eq(undefined);
 		});
 	});
 
@@ -89,11 +91,11 @@ describe('Rest parameters', () => {
 describe('Template literals', () => {
 	
 	describe('with strings', () => {	
-		let name = "A name";
+		let name = 'A name';
 		let result = `Hello, ${name}`;
 
 		it('assigns variable value to a string', () => {
-			expect(result).to.eq("Hello, A name");
+			expect(result).to.eq('Hello, A name');
 		});
 	});
 
@@ -112,7 +114,7 @@ describe('Lexical binding', () => {
 	
 	let f = new Functional('A name');
 
-	it("'this' has the same value in an arrow function", () => {
+	it('\'this\' has the same value in an arrow function', () => {
 		let result = f.lexicalBinding()();
 		expect(result).to.eq('A name');
 	});
