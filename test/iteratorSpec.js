@@ -35,13 +35,43 @@ describe('An iterable', () => {
 
 		expect(count).to.eq(4);
 	});
+
+	it('can be built by using Symbol.iterator generator function', () => {
+		class CompanyWithGenerator {
+
+			constructor() {
+				this.employees = [];
+			}
+
+			addEmployees(...names) {
+				this.employees = this.employees.concat(names);
+			}
+
+			*[Symbol.iterator]() {
+				for (let employee of this.employees) {
+					yield employee;
+				}
+			}
+		}		
+
+		let count = 0;
+		let company = new CompanyWithGenerator();
+		company.addEmployees('Haka', 'Dak', 'James', 'Dave');
+
+		for(let employee of company) {
+			/*jshint unused: false */
+			count +=1;
+		}
+
+		expect(count).to.eq(4);
+	});
 });
 
 describe('A generator with a \'generator function\'', () => {
 	
 	it('yields multiple values', () => {
 
-		//A generator function and pick up from where it left
+		//A generator function can pick up from where it left
 		let numbers = function*(start, end) {
 			for (var i = start; i <= end; i++) {
 				yield i;
@@ -75,7 +105,7 @@ describe('A generator with an iterator implementation', () => {
 		
 		let sum = 0;
 		/* Picking up from where we left is achieved by holding the current state
-		   as explained in the Iterator implementation. */
+		   as defined in the Iterator implementation. */
 		for (let n of new Range(1, 5)) {
 			sum += n;
 		}
