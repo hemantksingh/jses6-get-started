@@ -2,8 +2,8 @@
 
 import { expect } from 'chai';
 import './runtime.js';
-import ArrayIterator from '../src/ArrayIterator';
-import RangeIterator from '../src/RangeIterator';
+import ArrayIterator from '../src/arrayIterator.js';
+import RangeIterator from '../src/rangeIterator.js';
 
 
 describe('An iterable', () => {
