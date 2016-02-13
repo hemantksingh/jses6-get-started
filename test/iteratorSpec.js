@@ -36,6 +36,38 @@ describe('An iterable', () => {
 		expect(count).to.eq(4);
 	});
 
+	it('can be filtered using generator function', () => {
+		let count = 0;
+		let company = new Company();
+		company.addEmployees('Tim', 'Sue', 'Joy', 'Tom');
+
+		let filter = function* (items, predicate) {
+			for (let item of items) {
+				if(predicate(item)) {
+					yield item;
+				}
+			}
+		};
+
+		let take = function* (items, number) {
+			let count = 0;
+			//if(number < 1) return;
+
+			for(let item of items) {
+				count += 1;
+				yield item;
+				if(count >= number) return;
+			}
+		};
+
+		for (let employee of take(filter(company, item => item[0] === 'T'), 1)) {
+			/*jshint unused: false */
+			count +=1;
+		}
+
+		expect(count).to.eq(1);
+	});
+
 	it('can be built by using Symbol.iterator generator function', () => {
 		class CompanyWithGenerator {
 
@@ -68,7 +100,7 @@ describe('An iterable', () => {
 });
 
 describe('A generator with a \'generator function\'', () => {
-	
+
 	it('yields multiple values', () => {
 
 		//A generator function can pick up from where it left
@@ -82,13 +114,13 @@ describe('A generator with a \'generator function\'', () => {
 		for (let n of numbers(1, 5)){
 			sum += n;
 		}
-		
+
 		expect(sum).to.eq(15);
 	});
 });
 
 describe('A generator with an iterator implementation', () => {
-	
+
 	class Range {
 
 		constructor(start, end) {
@@ -99,17 +131,17 @@ describe('A generator with an iterator implementation', () => {
 		[Symbol.iterator]() {
 			return new RangeIterator(this.start, this.end);
 		}
-	} 
+	}
 
 	it('yields multiple values', () => {
-		
+
 		let sum = 0;
 		/* Picking up from where we left is achieved by holding the current state
-		   as defined in the Iterator implementation. */
+		 as defined in the Iterator implementation. */
 		for (let n of new Range(1, 5)) {
 			sum += n;
 		}
-		
+
 		expect(sum).to.eq(15);
 	});
 });
