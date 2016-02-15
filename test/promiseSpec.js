@@ -152,4 +152,33 @@ describe('Promise', () => {
                 console.log(error.message);
             });
     });
+
+    it('can execute a bunch of asynchronous operations with all', (done) => {
+        let productIds = [1, 2, 3];
+        let promises = [];
+        let shop = new Shop();
+
+        productIds.forEach((id) => promises.push(shop.getProduct(id)));
+
+        Promise.all(promises).then((values) => {
+            expect(values.length).to.eq(3);
+            expect(values).to.include({name: 'Sennheiser'});
+            expect(values).to.include({name: 'Beats'});
+            expect(values).to.include({name: 'Bose'});
+            done();
+        });
+    });
+
+    it('can resolve after the first promises with race', (done) => {
+        let productIds = [1, 2, 3];
+        let promises = [];
+        let shop = new Shop();
+
+        productIds.forEach((id) => promises.push(shop.getProduct(id)));
+
+        Promise.race(promises).then((firstValue) => {
+            expect(firstValue.name).to.eq('Sennheiser');
+            done();
+        });
+    });
 });
