@@ -1,6 +1,7 @@
 'use strict';
 
 import { expect } from 'chai';
+import Shop from '../src/shop.js';
 
 /*Testing asynchronous code
 *
@@ -134,5 +135,21 @@ describe('Promise', () => {
             expect(error.message).to.eq('Oops! Something went wrong.');
             done();
         });
+    });
+
+    it('can chain sequentially', (done) => {
+        let shop = new Shop();
+
+        shop.getOrder(1)
+            .then((order) => {
+                return shop.getUser(order.userId);
+            }).then((user) => {
+                return shop.getCompany(user.companyId);
+            }).then((company) => {
+                expect (company.name).to.eq('iNivaran');
+                done();
+            }).catch((error) => {
+                console.log(error.message);
+            });
     });
 });
