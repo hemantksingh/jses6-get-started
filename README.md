@@ -1,6 +1,6 @@
 A sample app leveraging the ECMAScript 6 Features.
 
-##Running the app##
+# Running the app
 
 `npm start`
 
@@ -9,6 +9,6 @@ This compiles the ES6 modules into ES5 and then runs the app. However,if you hav
 **Sourcemaps** plugin maps the compiled JS/CSS to source JS/CSS to fully track selectors and rules back to its very origin in your debugger.
 
 
-##Running tests ##
+# Running tests
 
 `npm test`
